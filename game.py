@@ -1,8 +1,8 @@
 import pygame
 
-from scripts.tank import Tank
+from scripts.entities.tank import Tank
 from scripts.entities.ammo import Ammo
-from scripts.meteor import Meteor
+from scripts.entities.meteor import Meteor
 from scripts.event_handler import EventHandler
 
 class Game:
