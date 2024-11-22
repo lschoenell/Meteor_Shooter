@@ -11,8 +11,6 @@ class Game:
     COLORKEY = (0, 0, 0)
     score = 0
 
-    print("Deine Mutter ist ein Meteorit")
-
     def __init__(self) -> None:
         pygame.init()
         pygame.display.set_caption("Meteor Shooter of Absolute Doom")
