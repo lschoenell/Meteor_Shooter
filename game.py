@@ -1,7 +1,8 @@
 import pygame
 
 from scripts.tank import Tank
-from scripts.ammo.ammo import Ammo
+from scripts.entities.ammo import Ammo
+from scripts.meteor import Meteor
 from scripts.event_handler import EventHandler
 
 class Game:
@@ -34,6 +35,9 @@ class Game:
         # Ammo initialisieren
         self.ammo: Ammo = Ammo(self.tank.pos[0], self.tank.pos[1], self)
 
+        # Meteor initialisieren
+        self.meteor: Meteor = Meteor(0, 0, self)
+
         # EventHandler initialisieren
         self.event_handler: EventHandler = EventHandler(self)
 
@@ -45,12 +49,18 @@ class Game:
     
     def run(self) -> None:
         """ der Startknopf für das Spiel """
+        start: int = pygame.time.get_ticks()
         while True:
             keys = pygame.key.get_pressed()
             self.handle_events()
-            self.tank.update(keys, self.screen_size[0])
             self.screen.fill(self.COLOR_BACKGROUND) # loescht das vorherige Frame, damit neu gerendert werden kann
+            now = pygame.time.get_ticks()
+            if now - start > 1000:
+                start = now
+                self.meteor.add()
+            self.meteor.draw_meteor(self.screen)
             self.tank.draw_tank(self.screen)
+            self.tank.update(keys, self.screen_size[0])
             self.ammo.draw_ammo(self.screen)
             pygame.display.update()
             self.clock.tick(60) # fungiert als dynaischer sleep, damit die Schleife nur 60 mal pro sek. aufgerufen wird
