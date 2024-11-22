@@ -4,6 +4,7 @@ from scripts.entities.tank import Tank
 from scripts.entities.ammo import Ammo
 from scripts.entities.meteor import Meteor
 from scripts.event_handler import EventHandler
+from scripts.difficulty_manager import DifficultyManager
 
 class Game:
 
@@ -41,6 +42,9 @@ class Game:
         # EventHandler initialisieren
         self.event_handler: EventHandler = EventHandler(self)
 
+        # DifficultyManager initialisieren
+        self.difficulty: DifficultyManager = DifficultyManager()
+
     
     def handle_events(self) -> None:
         """ Handhabung von Events """
@@ -49,14 +53,12 @@ class Game:
     
     def run(self) -> None:
         """ der Startknopf für das Spiel """
-        start: int = pygame.time.get_ticks()
         while True:
             keys = pygame.key.get_pressed()
             self.handle_events()
             self.screen.fill(self.COLOR_BACKGROUND) # loescht das vorherige Frame, damit neu gerendert werden kann
             now = pygame.time.get_ticks()
-            if now - start > 1000:
-                start = now
+            if self.difficulty.can_spawn(now):
                 self.meteor.add()
             self.meteor.draw_meteor(self.screen)
             self.tank.draw_tank(self.screen)
