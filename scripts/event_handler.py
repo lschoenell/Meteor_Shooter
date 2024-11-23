@@ -24,5 +24,12 @@ class EventHandler:
                     self.game.ammo.add_ammo()
 
 
-    def handle_ammo_collisions(self) -> None:
-        pass
+    def ammo_collisions(self) -> bool:
+        """ checkt für Kollisionen zwischen einer Ammo und allen Meteoriten """
+        for ammo in self.game.ammo.ammo_array[:]:
+            for meteor in self.game.meteor.meteor_array[:]:
+                if ammo.rect.colliderect(meteor.rect):
+                    self.game.ammo.ammo_array.remove(ammo)
+                    self.game.meteor.meteor_array.remove(meteor)
+                    return True
+        return False

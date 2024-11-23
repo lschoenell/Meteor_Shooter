@@ -4,7 +4,8 @@ from scripts.entities.tank import Tank
 from scripts.entities.ammo import Ammo
 from scripts.entities.meteor import Meteor
 from scripts.event_handler import EventHandler
-from scripts.difficulty_manager import DifficultyManager
+from scripts.timer import Timer
+from scripts.money import Money
 
 class Game:
 
@@ -12,8 +13,6 @@ class Game:
     COLOR_BACKGROUND: tuple = (85, 85, 85)
     # fungiert als Blocken vom rendern von schwarzer Farbe, damit Hintergrund in den Sprites durchsichtig erscheint
     COLORKEY: tuple = (0, 0, 0)
-    # Punktezahl für die abgeschossenen Meteoriten
-    score = 0
 
     def __init__(self) -> None:
         """
@@ -44,8 +43,11 @@ class Game:
         # EventHandler initialisieren
         self.event_handler: EventHandler = EventHandler(self)
 
-        # DifficultyManager initialisieren
-        self.difficulty: DifficultyManager = DifficultyManager()
+        # timerManager initialisieren
+        self.timer: Timer = Timer()
+
+        # Geld initialisieren
+        self.money: Money = Money()
 
     
     def handle_events(self) -> None:
@@ -53,6 +55,9 @@ class Game:
         self.event_handler.key_events()
 
         # score inkrementieren, wenn collision auftritt zwischen meteor und ammo
+        if self.event_handler.ammo_collisions():
+            # Geld hoch
+            self.money.add_money(100)
 
     
     def run(self) -> None:
@@ -61,8 +66,9 @@ class Game:
             keys = pygame.key.get_pressed()
             self.handle_events()
             self.screen.fill(self.COLOR_BACKGROUND) # loescht das vorherige Frame, damit neu gerendert werden kann
+            self.money.show_money(self.screen, self.screen_middle[0], self.screen_middle[1])
             now = pygame.time.get_ticks()
-            if self.difficulty.can_spawn(now):
+            if self.timer.can_spawn(now):
                 self.meteor.add()
             self.meteor.draw_meteor(self.screen)
             self.tank.draw_tank(self.screen)

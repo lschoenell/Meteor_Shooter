@@ -1,9 +1,9 @@
 import pygame
 
-class DifficultyManager:
+class Timer:
 
     def __init__(self) -> None:
-        """ Initialisiert den Difficulty Manager, setzt den timer auf 0 und setzt die Schwierigkeit """
+        """ Initialisiert den Timer, setzt den timer auf 0 und setzt die Schwierigkeit """
         self.last_spawn_time: int = 0
         # respawn timer, 1000 Millisekunden sind 1 Sekunde
         self.difficulty : int = 1000
