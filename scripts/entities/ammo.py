@@ -38,7 +38,7 @@ class Ammo:
         """
         Updated die y-Position der Ammo so, dass sie nach oben schießt und updated auch die Position des collisionrects
         """
-        self.pos[1] -= 13
+        self.pos[1] -= 20
         self.rect.y = self.pos[1] + self.sprite_offset_y
 
     
