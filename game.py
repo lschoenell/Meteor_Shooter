@@ -12,6 +12,8 @@ class Game:
     COLOR_BACKGROUND: tuple = (85, 85, 85)
     # fungiert als Blocken vom rendern von schwarzer Farbe, damit Hintergrund in den Sprites durchsichtig erscheint
     COLORKEY: tuple = (0, 0, 0)
+    # Punktezahl für die abgeschossenen Meteoriten
+    score = 0
 
     def __init__(self) -> None:
         """
@@ -49,6 +51,8 @@ class Game:
     def handle_events(self) -> None:
         """ Handhabung von Events """
         self.event_handler.key_events()
+
+        # score inkrementieren, wenn collision auftritt zwischen meteor und ammo
 
     
     def run(self) -> None:

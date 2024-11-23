@@ -10,13 +10,13 @@ class Meteor:
     # Liste erstellen, damit alle Meteoriten gerendert werden können statt nur einer
     meteor_array: list = []
 
-    def __init__(self, pos_x: int, pos_y: int, game) -> None:
+    def __init__(self, pos_x: int, pos_y: int, game: object) -> None:
         """
         Initialisiert ein einzelnes Meteor-Objekt and den gegebenen Positionen
         Arguments: 
             pos_x (int): die x-Koordinate für die linke obere Ecke
             pos_y (int): die y-Koordinate für die linke obere Ecke
-            game (Any): die main Klasse zur Handhabung von Interaktionen zwischen den Klassen
+            game (object): die main Klasse zur Handhabung von Interaktionen zwischen den Klassen
         """
         self.game = game
 

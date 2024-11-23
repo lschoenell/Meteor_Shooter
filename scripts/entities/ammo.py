@@ -11,13 +11,13 @@ class Ammo:
     # Liste erstellen, damit alle geschossenen Schüsse gerendert werden können statt nur einer
     ammo_array: list = []
 
-    def __init__(self, pos_x: int, pos_y: int, game) -> None:
+    def __init__(self, pos_x: int, pos_y: int, game: object) -> None:
         """
         Initialisiert eine einzelne Ammo an den gegebenen Positionen x und y
         Arguments:
             pos_x (int): die x-Koordinate für die linke obere Ecke
             pos_y (int): die y-Koordinate für die linke obere Ecke
-            game (Any): die main Klasse zur Handhabung von Interaktionen zwischen den Klassen
+            game (object): die main Klasse zur Handhabung von Interaktionen zwischen den Klassen
         """
         #self.ammo: pygame.Surface = pygame.image.load("assets/Ammo.png").convert()
         #self.ammo: pygame.Surface = pygame.transform.scale(self.ammo, (55, 55))
