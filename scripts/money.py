@@ -6,10 +6,10 @@ class Money:
     COLOR_SCORE: tuple = (125, 125, 120)
 
     def __init__(self) -> None:
-        """ beinhaltet das derzeitige Geld des Spielers, initialisiert mit dem Geld auf 0 und einer fonr size von 350 """
-        self.coins = 0
-        self.font = pygame.font.Font(None, 350)
-        self.coin_text = None
+        """ beinhaltet das derzeitige Geld des Spielers, initialisiert mit dem Geld auf 0 und einer font size von 350 """
+        self.coins: int = 0
+        self.font: pygame.font.Font = pygame.font.Font(None, 350)
+        self.coin_text: pygame.Surface = None
         self.update_coin_text()
 
     

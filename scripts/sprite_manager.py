@@ -6,7 +6,7 @@ class SpriteManager:
         """
         initialisiert den Sprite Manager mit einem leeren cache, damit bei mehrfachen aufrufen der pygame.image.load() Funktion nur einmal das Bild geladen werden muss und sonst aus dem cache genommen wird
         """
-        self.sprites = {}
+        self.sprites: dict = {}
 
     def load_sprite(self, path: str, dimensions: tuple) -> pygame.Surface:
         """
@@ -20,7 +20,7 @@ class SpriteManager:
             pygame.Surface: den Sprite
         """
         if path not in self.sprites:
-            sprite = pygame.image.load(path).convert()  # Optimize for display
+            sprite = pygame.image.load(path).convert()
             sprite = pygame.transform.scale(sprite, dimensions)
             self.sprites[path] = sprite
         return self.sprites[path]
