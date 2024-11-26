@@ -57,6 +57,7 @@ class Game:
         # Menu initialisieren
         self.menu: Menu = Menu(self)
 
+        # derzeitiger Spielzustand, startet im Hautptmenü
         self.game_state = self.MAIN_MENU
 
     
