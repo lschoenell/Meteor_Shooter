@@ -9,8 +9,6 @@ class Menu:
         self.game = game
 
     
-    def load_main_menu(self, keys: list, screen: pygame.Surface) -> None:
+    def load_main_menu(self, screen: pygame.Surface) -> None:
         screen.fill(self.game.COLOR_BACKGROUND)
         pygame.display.update()
-        if keys[pygame.K_ESCAPE]:
-            print(self.game.game_state)

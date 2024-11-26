@@ -19,9 +19,15 @@ class EventHandler:
                 pygame.quit()
                 sys.exit()
 
-            if event.type == pygame.KEYDOWN:
+            # einzelner Tastendruck während des Spielens
+            if event.type == pygame.KEYDOWN and self.game.game_state == self.game.PLAYING:
                 if event.key == pygame.K_SPACE:
                     self.game.ammo.add_ammo()
+
+            # einzelner Tastendruck während des Hauptmenüs
+            if event.type == pygame.KEYDOWN and self.game.game_state == self.game.MAIN_MENU:
+                if event.key == pygame.K_SPACE:
+                    self.game.game_state = self.game.PLAYING
 
 
     def ammo_collisions(self) -> bool:

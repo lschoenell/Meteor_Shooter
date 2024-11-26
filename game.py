@@ -76,7 +76,7 @@ class Game:
             keys = pygame.key.get_pressed()
             if self.game_state == self.MAIN_MENU:
                 self.event_handler.key_events()
-                self.menu.load_main_menu(keys, self.screen)
+                self.menu.load_main_menu(self.screen)
                 self.clock.tick(60)
 
             if self.game_state == self.PLAYING:
