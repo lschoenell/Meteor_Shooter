@@ -15,7 +15,7 @@ class Money:
     
     def update_coin_text(self) -> None:
         """ updated den Text des Geldes und setzt die Alpha auf 125 (ungefähr Hälfte) """
-        self.coin_text = self.font.render(f"{self.coins}", True, self.COLOR_SCORE).convert()
+        self.coin_text = self.font.render(f"{self.coins}", True, self.COLOR_SCORE).convert_alpha()
         self.coin_text.set_alpha(125)
 
 
