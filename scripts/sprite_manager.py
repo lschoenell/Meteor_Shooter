@@ -2,6 +2,9 @@ import pygame
 
 class SpriteManager:
 
+    # blockiert das rendern von schwarzer Farbe, damit Hitergrund vom Sprite transparent erscheint
+    COLORKEY: tuple = (0, 0, 0)
+
     def __init__(self) -> None:
         """
         initialisiert den Sprite Manager mit einem leeren cache, damit bei mehrfachen aufrufen der pygame.image.load() Funktion nur einmal das Bild geladen werden muss und sonst aus dem cache genommen wird
@@ -22,5 +25,6 @@ class SpriteManager:
         if path not in self.sprites:
             sprite = pygame.image.load(path).convert()
             sprite = pygame.transform.scale(sprite, dimensions)
+            sprite.set_colorkey(self.COLORKEY)
             self.sprites[path] = sprite
         return self.sprites[path]

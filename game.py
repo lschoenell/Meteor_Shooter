@@ -16,8 +16,8 @@ class Game:
     COLORKEY: tuple = (0, 0, 0)
 
     # Konstanten für den Spielzustand
-    MAIN_MENU = "main menu"
-    PLAYING = "playing"
+    MAIN_MENU: str = "main menu"
+    PLAYING: str = "playing"
 
     def __init__(self) -> None:
         """
@@ -58,7 +58,7 @@ class Game:
         self.menu: Menu = Menu(self)
 
         # derzeitiger Spielzustand, startet im Hautptmenü
-        self.game_state = self.MAIN_MENU
+        self.game_state: str = self.MAIN_MENU
 
     
     def handle_events(self) -> None:

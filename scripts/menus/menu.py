@@ -1,15 +1,20 @@
 import pygame
 
+from scripts.sprite_manager import SpriteManager
+
 class Menu:
 
     def __init__(self, game: object) -> None:
-        self.game = game
-        self.font = pygame.font.Font(None, 200)
-        self.start_button = self.font.render("Start", True, (255, 255, 255)).convert_alpha()
-        self.start_button_positions = (self.game.screen_middle[0] - (self.start_button.get_width() / 2), self.game.screen_middle[1])
+        self.game: object = game
+        self.sprite_manager: SpriteManager = SpriteManager()
+        self.start_button: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Start_Button.png", (160, 80))
+        self.quit_button: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Quit_Button.png", (160, 80))
+        self.tutorial_button: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Tutorial_Button.png", (220, 80))
 
-    
+
     def load_main_menu(self, screen: pygame.Surface) -> None:
         screen.fill(self.game.COLOR_BACKGROUND)
-        screen.blit(self.start_button, (self.start_button_positions[0], self.start_button_positions[1]))
+        screen.blit(self.start_button, (100, 100))
+        screen.blit(self.tutorial_button, (100, 200))
+        screen.blit(self.quit_button, (100, 300))
         pygame.display.update()

@@ -4,8 +4,6 @@ from scripts.sprite_manager import SpriteManager
 
 class Ammo:
 
-    # blockiert das rendern von schwarzer Farbe, damit Hitergrund vom Sprite transparent erscheint
-    COLORKEY: tuple = (0, 0, 0)
     # offset, da das eigentliche Sprite nicht die obere Spitze da hat, wo das Bild tatsächlich oben endet
     sprite_offset_y: int = 26
     # Liste erstellen, damit alle geschossenen Schüsse gerendert werden können statt nur einer
@@ -24,7 +22,6 @@ class Ammo:
         self.sprite_manager: SpriteManager = SpriteManager()
 
         self.ammo: pygame.Surface = self.sprite_manager.load_sprite("assets/Ammo.png", (55, 55))
-        self.ammo.set_colorkey(self.COLORKEY)
         self.ammo_dimensons: int = 55
 
         self.pos: list = [pos_x, pos_y]

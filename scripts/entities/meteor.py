@@ -5,8 +5,6 @@ from scripts.sprite_manager import SpriteManager
 
 class Meteor:
 
-    # blockiert das rendern von schwarzer Farbe, damit Hitergrund vom Sprite transparent erscheint
-    COLORKEY: tuple = (0, 0, 0)
     # Liste erstellen, damit alle Meteoriten gerendert werden können statt nur einer
     meteor_array: list = []
 
@@ -23,7 +21,6 @@ class Meteor:
         self.sprite_manager: SpriteManager = SpriteManager()
 
         self.meteor: pygame.Surface = self.sprite_manager.load_sprite("assets/Meteorit.png", (100, 100))
-        self.meteor.set_colorkey(self.COLORKEY)
         self.meteor_dimensions: int = 100
 
         self.pos: list = [pos_x, pos_y]
@@ -43,7 +40,7 @@ class Meteor:
 
     def add(self) -> None:
         """ fügt dem internen meteor-array ein neues Objekt an zufälliger x-Position hinzu """
-        self.meteor_array.append(Meteor(self.set_position(), 0, self.game))
+        self.meteor_array.append(Meteor(self.set_position(), 0 - self.meteor_dimensions, self.game))
 
 
     def update_position(self) -> None:

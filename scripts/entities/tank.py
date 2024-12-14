@@ -4,9 +4,6 @@ from scripts.sprite_manager import SpriteManager
 
 class Tank:
 
-    # blockiert das rendern von schwarzer Farbe, damit Hitergrund vom Sprite transparent erscheint
-    COLORKEY: tuple = (0, 0, 0)
-
     def __init__(self, pos_x: int, pos_y: int) -> None:
         """
         initialisiert den Tank und setzt ihn an die Positionen pos_x und pos_y
@@ -19,7 +16,6 @@ class Tank:
         self.sprite_manager: SpriteManager = SpriteManager()
 
         self.tank: pygame.Surface = self.sprite_manager.load_sprite("assets/Tank.png", (90, 90))
-        self.tank.set_colorkey(self.COLORKEY)
         self.tank_dimensions: int = 90
 
         self.pos: list = [pos_x, pos_y]
