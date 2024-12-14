@@ -9,11 +9,12 @@ class EventHandler:
         Arguments:
             game (object): die game Instanz zum Zugriff auf alle Inhalte der game Logik
         """
-        self.game = game
+        self.game: object = game
 
 
     def key_events(self) -> None:
         """ beinhaltet Handhabung der grundlegenden Eventtypen wie das Schließen des Fensters oder drücken von Tasten """
+        mouse_x, mouse_y = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -25,8 +26,14 @@ class EventHandler:
                     self.game.ammo.add_ammo()
 
             # einzelner Tastendruck während des Hauptmenüs
-            if event.type == pygame.KEYDOWN and self.game.game_state == self.game.MAIN_MENU:
-                if event.key == pygame.K_SPACE:
+            if event.type == pygame.MOUSEBUTTONDOWN and self.game.game_state == self.game.MAIN_MENU:
+                if mouse_x >= self.game.menu.start_button_pos[0] and mouse_x <= self.game.menu.start_button_pos[0] + self.game.menu.start_button.get_width():
+                    x_inside = True
+                
+                if mouse_y >= self.game.menu.start_button_pos[1] and mouse_y <= self.game.menu.start_button_pos[1] + self.game.menu.start_button.get_height():
+                    y_inside = True
+
+                if x_inside and y_inside:                   
                     self.game.game_state = self.game.PLAYING
 
 
