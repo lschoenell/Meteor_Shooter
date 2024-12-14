@@ -6,7 +6,7 @@ from scripts.entities.meteor import Meteor
 from scripts.event_handler import EventHandler
 from scripts.timer import Timer
 from scripts.money import Money
-from scripts.menus.menu import Menu
+from scripts.menus.main_menu import MainMenu
 
 class Game:
 
@@ -55,7 +55,7 @@ class Game:
         self.money: Money = Money()
 
         # Menu initialisieren
-        self.menu: Menu = Menu(self)
+        self.menu: MainMenu = MainMenu(self)
 
         # derzeitiger Spielzustand, startet im Hautptmenü
         self.game_state: str = self.MAIN_MENU

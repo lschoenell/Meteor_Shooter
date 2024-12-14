@@ -25,11 +25,12 @@ class EventHandler:
                 if event.key == pygame.K_SPACE:
                     self.game.ammo.add_ammo()
 
-            # einzelner Tastendruck während des Hauptmenüs
+            # einzelner Maustastendruck im Hauptmenü
             if event.type == pygame.MOUSEBUTTONDOWN and self.game.game_state == self.game.MAIN_MENU:
+                # Starten des Spiels beim drücken des Start Buttons
                 if mouse_x >= self.game.menu.start_button_pos[0] and mouse_x <= self.game.menu.start_button_pos[0] + self.game.menu.start_button.get_width():
                     x_inside = True
-                
+    
                 if mouse_y >= self.game.menu.start_button_pos[1] and mouse_y <= self.game.menu.start_button_pos[1] + self.game.menu.start_button.get_height():
                     y_inside = True
 
