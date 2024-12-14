@@ -11,8 +11,6 @@ class Tank:
             pos_x (int): die x-Koordinate für die linke obere Ecke
             pos_y (int): die y-Koordinate für die linke obere Ecke
         """
-        #self.tank: pygame.Surface = pygame.image.load("assets/Tank.png").convert()
-        #self.tank: pygame.Surface = pygame.transform.scale(self.tank, (90, 90))
         self.sprite_manager: SpriteManager = SpriteManager()
 
         self.tank: pygame.Surface = self.sprite_manager.load_sprite("assets/Tank.png", (90, 90))

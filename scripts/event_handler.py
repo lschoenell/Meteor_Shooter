@@ -27,15 +27,32 @@ class EventHandler:
 
             # einzelner Maustastendruck im Hauptmenü
             if event.type == pygame.MOUSEBUTTONDOWN and self.game.game_state == self.game.MAIN_MENU:
+                # Handling für den Play Button
+                x_inside_play = False
+                y_inside_play = False
                 # Starten des Spiels beim drücken des Start Buttons
                 if mouse_x >= self.game.menu.start_button_pos[0] and mouse_x <= self.game.menu.start_button_pos[0] + self.game.menu.start_button.get_width():
-                    x_inside = True
+                    x_inside_play = True
     
                 if mouse_y >= self.game.menu.start_button_pos[1] and mouse_y <= self.game.menu.start_button_pos[1] + self.game.menu.start_button.get_height():
-                    y_inside = True
+                    y_inside_play = True
 
-                if x_inside and y_inside:                   
+                if x_inside_play and y_inside_play:
                     self.game.game_state = self.game.PLAYING
+
+                # Handling für den Quit Button
+                x_inside_quit = False
+                y_inside_quit = False
+                # Schließen des Spiels beim drücken des Quit Buttons
+                if mouse_x >= self.game.menu.quit_button_pos[0] and mouse_x <= self.game.menu.quit_button_pos[0] + self.game.menu.quit_button.get_width():
+                    x_inside_quit = True
+                
+                if mouse_y >= self.game.menu.quit_button_pos[1] and mouse_y <= self.game.menu.quit_button_pos[1] + self.game.menu.quit_button.get_width():
+                    y_inside_quit = True
+
+                if (x_inside_quit and y_inside_quit):
+                    pygame.quit()
+                    sys.exit()
 
 
     def ammo_collisions(self) -> bool:
