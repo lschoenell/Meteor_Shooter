@@ -69,6 +69,7 @@ class Game:
         if self.event_handler.ammo_collisions():
             # Geld hoch
             self.money.add_money(100)
+            self.tank.hp -= 10
 
     
     def run(self) -> None:

@@ -23,8 +23,8 @@ class Tank:
 
         self.overheatbar: pygame.Rect = pygame.Rect(self.pos[0] - 10, self.pos[1], 10, self.tank_dimensions)
 
-        self.hp = 100
-        self.healthbar: pygame.Rect = pygame.Rect(self.pos[0], self.pos[1] + self.tank_dimensions + 5, self.tank_dimensions, 10)
+        self.hp = 100 # Prozent
+        #self.healthbar: pygame.Rect = pygame.Rect(self.pos[0], self.pos[1] + self.tank_dimensions + 5, self.tank_dimensions * self.hp / 100, 10)
 
     
     def draw_tank(self, screen: pygame.Surface) -> None:
@@ -35,6 +35,7 @@ class Tank:
         """
         screen.blit(self.tank, (self.pos[0], self.pos[1]))
         pygame.draw.rect(screen, "blue", self.overheatbar)
+        self.healthbar: pygame.Rect = pygame.Rect(self.pos[0], self.pos[1] + self.tank_dimensions + 5, self.tank_dimensions * self.hp / 100, 10)
         pygame.draw.rect(screen, "red", self.healthbar)
 
     
