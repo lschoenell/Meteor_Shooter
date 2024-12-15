@@ -21,6 +21,11 @@ class Tank:
         self.rect: pygame.Rect = self.tank.get_rect()
         self.rect.topleft = self.pos
 
+        self.overheatbar: pygame.Rect = pygame.Rect(self.pos[0] - 10, self.pos[1], 10, self.tank_dimensions)
+
+        self.hp = 100
+        self.healthbar: pygame.Rect = pygame.Rect(self.pos[0], self.pos[1] + self.tank_dimensions + 5, self.tank_dimensions, 10)
+
     
     def draw_tank(self, screen: pygame.Surface) -> None:
         """ 
@@ -29,6 +34,8 @@ class Tank:
             screen (pygame.Surface): surface, auf das gerendert werden soll
         """
         screen.blit(self.tank, (self.pos[0], self.pos[1]))
+        pygame.draw.rect(screen, "blue", self.overheatbar)
+        pygame.draw.rect(screen, "red", self.healthbar)
 
     
     def update(self, keys: list, screen_width: int) -> None:
@@ -41,8 +48,12 @@ class Tank:
         # Tank bewegen
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.pos[0] += 12
+            self.overheatbar.x = self.pos[0] - 10
+            self.healthbar.x = self.pos[0]
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.pos[0] -= 12
+            self.overheatbar.x = self.pos[0] - 10
+            self.healthbar.x = self.pos[0]
 
         # screen wrapping
         if self.pos[0] + self.tank.get_width() < 0:

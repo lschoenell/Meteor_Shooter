@@ -37,7 +37,7 @@ class Game:
         self.clock: pygame.time.Clock = pygame.time.Clock()
 
         # Tank initialisieren
-        self.tank: Tank = Tank(self.screen_middle[0] - 45, self.screen_size[1] - 100)
+        self.tank: Tank = Tank(self.screen_middle[0] - 45, self.screen_size[1] - 110)
 
         # Ammo initialisieren
         self.ammo: Ammo = Ammo(self.tank.pos[0], self.tank.pos[1], self)
