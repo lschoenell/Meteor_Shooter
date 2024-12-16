@@ -55,16 +55,28 @@ class EventHandler:
                     sys.exit()
 
 
-    def ammo_collisions(self) -> bool:
+    def collisions(self) -> bool:
         """ 
         checkt für Kollisionen zwischen einer Ammo und allen Meteoriten
         Returns:
             bool: True wenn ein ammo ein meteor getroffen hat, sonst False
         """
-        for ammo in self.game.ammo.ammo_array[:]:
-            for meteor in self.game.meteor.meteor_array[:]:
+        for meteor in self.game.meteor.meteor_array[:]:
+            for ammo in self.game.ammo.ammo_array[:]:
                 if ammo.rect.colliderect(meteor.rect):
                     self.game.ammo.ammo_array.remove(ammo)
                     self.game.meteor.meteor_array.remove(meteor)
                     return True
+            if meteor.rect.colliderect(self.game.tank.rect):
+                self.game.tank.hp -= 50
+                self.game.meteor.meteor_array.remove(meteor)
+                self.game.money.add_money(-1000)
+                if self.game.tank.hp <= 0:
+                    self.game.game_state = self.game.MAIN_MENU
+            if meteor.pos[1] > self.game.screen_size[1] - self.game.meteor.meteor_dimensions:
+                self.game.meteor.meteor_array.remove(meteor)
+                self.game.tank.hp -= 20
+                self.game.money.add_money(-100)
+                if self.game.tank.hp <= 0:
+                    self.game.game_state = self.game.MAIN_MENU
         return False

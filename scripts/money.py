@@ -6,7 +6,7 @@ class Money:
     COLOR_SCORE: tuple = (125, 125, 120)
 
     def __init__(self) -> None:
-        """ beinhaltet das derzeitige Geld des Spielers, initialisiert mit dem Geld auf 0 und einer font size von 350 """
+        """ beinhaltet das derzeitige Geld des Spielers, initialisiert mit dem Geld auf 0  """
         self.coins: int = 0
         self.font: pygame.font.Font = pygame.font.Font(None, 350)
         self.coin_text: pygame.Surface = None
@@ -21,11 +21,14 @@ class Money:
 
     def add_money(self, amount: int) -> None:
         """
-        fügt dem Geldspeicher die angegebene Menge hinzu
+        fügt dem Geldspeicher die angegebene Menge hinzu, egal ob positiv oder negativ und begrenzt die Untergrenze bei 0
         Arguments:
             amount (int): die Menge, die hinzugefügt werden soll
         """
-        self.coins += amount
+        if amount < 0 and abs(amount) > self.coins:
+            self.coins = 0
+        else:
+            self.coins += amount
         self.update_coin_text()
 
 

@@ -58,5 +58,3 @@ class Meteor:
         for i, object in enumerate(self.meteor_array[:]):
             screen.blit(self.meteor, (object.pos[0], object.pos[1]))
             object.update_position()
-            if object.pos[1] > self.game.screen_size[1] - self.meteor_dimensions:
-                self.meteor_array.pop(i)

@@ -66,10 +66,9 @@ class Game:
         self.event_handler.key_events()
 
         # score inkrementieren, wenn collision auftritt zwischen meteor und ammo
-        if self.event_handler.ammo_collisions():
+        if self.event_handler.collisions():
             # Geld hoch
             self.money.add_money(100)
-            self.tank.hp -= 10
 
     
     def run(self) -> None:
