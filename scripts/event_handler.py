@@ -24,6 +24,7 @@ class EventHandler:
             if event.type == pygame.KEYDOWN and self.game.game_state == self.game.PLAYING:
                 if event.key == pygame.K_SPACE:
                     self.game.ammo.add_ammo()
+                    self.game.tank.overheat_value += 20
 
             # einzelner Maustastendruck im Hauptmenü
             if event.type == pygame.MOUSEBUTTONDOWN and self.game.game_state == self.game.MAIN_MENU:
