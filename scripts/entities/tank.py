@@ -7,7 +7,9 @@ class Tank:
     def __init__(self, pos_x: int, pos_y: int) -> None:
         """
         initialisiert den Tank und setzt ihn an die Positionen pos_x und pos_y
+
         Arguments:
+        ---------
             pos_x (int): die x-Koordinate für die linke obere Ecke
             pos_y (int): die y-Koordinate für die linke obere Ecke
         """

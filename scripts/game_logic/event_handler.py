@@ -63,7 +63,9 @@ class EventHandler:
     def collisions(self) -> bool:
         """ 
         checkt für Kollisionen zwischen einer Ammo und allen Meteoriten
+
         Returns:
+        -------
             bool: True wenn ein ammo ein meteor getroffen hat, sonst False
         """
         for meteor in self.game.meteor.meteor_array[:]:

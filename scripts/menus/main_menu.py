@@ -7,7 +7,9 @@ class MainMenu:
     def __init__(self, game: object) -> None:
         """
         Initialisiert das Hauptmenü und alle Button Sprites
+
         Arguments:
+        ---------
             game (object): die game Instanz zum Zugriff auf alle Inhalte der game Logik
         """
         self.game: object = game
@@ -42,7 +44,9 @@ class MainMenu:
     def load_main_menu(self, screen: pygame.Surface) -> None:
         """
         Läd die Inhalte des Hauptmenüs auf den übergebenen screen, initialisiert nicht die clock
+
         Arguments:
+        ---------
             screen (pygame.Surface): das Surface, auf das gerendert werden soll
         """
         screen.fill(self.game.COLOR_BACKGROUND)

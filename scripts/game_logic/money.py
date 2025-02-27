@@ -22,7 +22,9 @@ class Money:
     def add_money(self, amount: int) -> None:
         """
         fügt dem Geldspeicher die angegebene Menge hinzu, egal ob positiv oder negativ und begrenzt die Untergrenze bei 0
+
         Arguments:
+        ---------
             amount (int): die Menge, die hinzugefügt werden soll
         """
         if amount < 0 and abs(amount) > self.coins:
@@ -35,7 +37,9 @@ class Money:
     def show_money(self, screen: pygame.Surface, screen_middle_x: int, screen_middle_y: int) -> None:
         """ 
         rendert das Geld auf das angegebene Surface an den gegebenen Koordinaten
+
         Arguments:
+        ---------
             screen (pygame.Surface): Surface, auf das gerendert werden soll
             screen_middle_x (int): x-Koordinate, an die gerendert werden soll (hier die Fenstermitte) 
             screen_middle_y (int): y-Koordinate, an die gerendert werden soll (hier die Fenstermitte)

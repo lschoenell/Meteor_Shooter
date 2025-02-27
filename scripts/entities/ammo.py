@@ -12,7 +12,9 @@ class Ammo:
     def __init__(self, pos_x: int, pos_y: int, game: object) -> None:
         """
         Initialisiert eine einzelne Ammo an den gegebenen Positionen x und y
+
         Arguments:
+        ---------
             pos_x (int): die x-Koordinate für die linke obere Ecke
             pos_y (int): die y-Koordinate für die linke obere Ecke
             game (object): die main Klasse zur Handhabung von Interaktionen zwischen den Klassen
@@ -33,7 +35,9 @@ class Ammo:
     def update(self, dt: float) -> None:
         """
         Updated die y-Position der Ammo so, dass sie nach oben schießt und updated auch die Position des collisionrects
+
         Arguments:
+        ---------
             dt (float): delta time in Sekunden
         """
         self.pos[1] -= self.speed * dt
@@ -50,7 +54,9 @@ class Ammo:
     def draw_ammo(self, screen: pygame.Surface) -> None:
         """
         rendert alle Objekte des ammo arrays auf den gegebenen screen und löscht alle Ammo Objekte, die außerhalb des Bildschirms fliegen
+
         Arguments:
+        ---------
             screen (pygame.Surface): Surface, auf das gerendert werden soll
         """
         # slicing ([:]) auf das ammo_array, damit durch eine interne Kopie iteriert wird, die nicht dynamisch veraendert werden kann, damit eventuelle Indexprobleme bei pop() behoben werden
