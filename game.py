@@ -12,7 +12,7 @@ class Game:
 
     # Farbe vom Hintergrund (dunkelgrau)
     COLOR_BACKGROUND: tuple = (85, 85, 85)
-    # fungiert als Blocken vom rendern von schwarzer Farbe, damit Hintergrund in den Sprites durchsichtig erscheint
+    # blockiert rendern von schwarzer Farbe
     COLORKEY: tuple = (0, 0, 0)
 
     # Konstanten für den Spielzustand
@@ -65,7 +65,6 @@ class Game:
         """ Handhabung von Events """
         self.event_handler.key_events()
 
-        # score inkrementieren, wenn collision auftritt zwischen meteor und ammo
         if self.event_handler.collisions():
             # Geld hoch
             self.money.add_money(100)

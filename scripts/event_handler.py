@@ -22,9 +22,13 @@ class EventHandler:
 
             # einzelner Tastendruck während des Spielens
             if event.type == pygame.KEYDOWN and self.game.game_state == self.game.PLAYING:
-                if event.key == pygame.K_SPACE:
-                    self.game.ammo.add_ammo()
-                    self.game.tank.overheat_value += 20
+                if event.key == pygame.K_SPACE and not self.game.tank.is_overheated:
+                    if self.game.tank.overheat_value < 100:
+                        self.game.ammo.add_ammo()
+                        new_overheat = min(100, self.game.tank.overheat_value + 20)
+                        if new_overheat >= 100:
+                            self.game.tank.is_overheated = True
+                        self.game.tank.overheat_value = new_overheat
 
             # einzelner Maustastendruck im Hauptmenü
             if event.type == pygame.MOUSEBUTTONDOWN and self.game.game_state == self.game.MAIN_MENU:

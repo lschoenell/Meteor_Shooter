@@ -22,6 +22,7 @@ class Tank:
         self.rect.topleft = self.pos
 
         self.overheat_value: int = 0 # Prozent
+        self.is_overheated: bool = False
         self.overheatbar: pygame.Rect = pygame.Rect(self.pos[0] - 10, self.pos[1] + self.tank_dimensions, 10, 0)
 
         self.hp: int = 100 # Prozent
@@ -54,6 +55,13 @@ class Tank:
             keys (list): z.B. pygame.key.get_pressed()
             screen_width (int): Breite des Fensters
         """
+        # Overheat soll kostant abgekuehlt werden
+        self.overheat_value = max(0, self.overheat_value - 0.5)
+
+        # Overheat boolean zuruecksetzen, wenn auf unter 50% abgekuehlt ist
+        if self.is_overheated and self.overheat_value <= 50:
+            self.is_overheated = False
+
         # Tank bewegen
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.pos[0] += 12
