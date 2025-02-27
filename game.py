@@ -3,10 +3,9 @@ import pygame
 from scripts.entities.tank import Tank
 from scripts.entities.ammo import Ammo
 from scripts.entities.meteor import Meteor
-from scripts.event_handler import EventHandler
-from scripts.timer import Timer
-from scripts.wave_system import WaveSystem
-from scripts.money import Money
+from scripts.game_logic.event_handler import EventHandler
+from scripts.game_logic.wave_system import WaveSystem
+from scripts.game_logic.money import Money
 from scripts.menus.main_menu import MainMenu
 
 class Game:
@@ -50,8 +49,7 @@ class Game:
         # EventHandler initialisieren
         self.event_handler: EventHandler = EventHandler(self)
 
-        # timerManager initialisieren
-        self.timer: Timer = Timer()
+        # WaveSystem initialisieren
         self.wave_system: WaveSystem = WaveSystem()
 
         # Geld initialisieren

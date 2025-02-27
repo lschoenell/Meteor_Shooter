@@ -25,7 +25,7 @@ class EventHandler:
                 if event.key == pygame.K_SPACE and not self.game.tank.is_overheated:
                     if self.game.tank.overheat_value < 100:
                         self.game.ammo.add_ammo()
-                        new_overheat = min(100, self.game.tank.overheat_value + 20)
+                        new_overheat = min(100, self.game.tank.overheat_value + 25)
                         if new_overheat >= 100:
                             self.game.tank.is_overheated = True
                         self.game.tank.overheat_value = new_overheat
