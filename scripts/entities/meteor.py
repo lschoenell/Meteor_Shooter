@@ -5,7 +5,7 @@ from scripts.sprite_manager import SpriteManager
 
 class Meteor:
 
-    # Liste erstellen, damit alle Meteoriten gerendert werden können statt nur einer
+    # Liste erstellen, damit alle Meteoriten gerendert werden koennen statt nur einer
     meteor_array: list = []
 
     def __init__(self, pos_x: int, pos_y: int, game: object) -> None:

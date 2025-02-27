@@ -78,21 +78,34 @@ class Game:
             self.dt = self.clock.tick(60) / 1000.0
 
             keys = pygame.key.get_pressed()
+            
             if self.game_state == self.MAIN_MENU:
                 self.event_handler.key_events()
+                # Hauptmenue laden
                 self.menu.load_main_menu(self.screen)
 
             if self.game_state == self.PLAYING:
                 self.handle_events()
-                self.screen.fill(self.COLOR_BACKGROUND) # loescht das vorherige Frame, damit neu gerendert werden kann
+
+                # vorheriges Frame loeschen
+                self.screen.fill(self.COLOR_BACKGROUND)
+
+                # Geld und Wellenzaehler anzeigen
                 self.money.show_money(self.screen, self.screen_middle[0], self.screen_middle[1])
+                self.wave_system.show_wave_counter(self.screen, self.screen_middle[0], self.screen_middle[1])
+
+                # Wellenlogik
                 self.wave_system.update(self.dt)
                 if self.wave_system.can_spawn(self.dt):
                     self.meteor.add()
+
+                # Spielentities laden und updaten
                 self.meteor.draw_meteor(self.screen)
                 self.tank.draw_tank(self.screen)
                 self.tank.update(keys, self.screen_size[0], self.dt)
                 self.ammo.draw_ammo(self.screen)
+
+                # Bild rendern
                 pygame.display.update()
 
 Game().run()
