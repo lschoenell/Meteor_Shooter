@@ -33,7 +33,9 @@ class Tank:
     def draw_tank(self, screen: pygame.Surface) -> None:
         """ 
         rendert den Tank an das gegebene Surface
+
         Arguments:
+        ---------
             screen (pygame.Surface): surface, auf das gerendert werden soll
         """
         # Tank rendern
@@ -52,7 +54,9 @@ class Tank:
     def update(self, keys: list, screen_width: int, dt: float) -> None:
         """
         updated die x-Koordinaten des Tanks bei Tastendruck von rechter und linker Pfeiltaste oder A und D
+
         Arguments:
+        ---------
             keys (list): z.B. pygame.key.get_pressed()
             screen_width (int): Breite des Fensters
             dt (float): delta time in Sekunden
