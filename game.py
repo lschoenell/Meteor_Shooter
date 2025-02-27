@@ -5,6 +5,7 @@ from scripts.entities.ammo import Ammo
 from scripts.entities.meteor import Meteor
 from scripts.event_handler import EventHandler
 from scripts.timer import Timer
+from scripts.wave_system import WaveSystem
 from scripts.money import Money
 from scripts.menus.main_menu import MainMenu
 
@@ -33,8 +34,9 @@ class Game:
         self.screen_middle: tuple = (self.screen_size[0] / 2, self.screen_size[1] / 2)
         self.screen: pygame.Surface = pygame.display.set_mode(self.screen_size)
 
-        # gameclock fuer fps
+        # gameclock fuer fps und delta time
         self.clock: pygame.time.Clock = pygame.time.Clock()
+        self.dt: float = 0
 
         # Tank initialisieren
         self.tank: Tank = Tank(self.screen_middle[0] - 45, self.screen_size[1] - 110)
@@ -50,6 +52,7 @@ class Game:
 
         # timerManager initialisieren
         self.timer: Timer = Timer()
+        self.wave_system: WaveSystem = WaveSystem()
 
         # Geld initialisieren
         self.money: Money = Money()
@@ -73,25 +76,25 @@ class Game:
     def run(self) -> None:
         """ der Startknopf für das Spiel """
         while True:
+            # delta time des vergangenen Frames in Sekunden ausrechnen
+            self.dt = self.clock.tick(60) / 1000.0
+
             keys = pygame.key.get_pressed()
             if self.game_state == self.MAIN_MENU:
                 self.event_handler.key_events()
                 self.menu.load_main_menu(self.screen)
-                self.clock.tick(60)
 
             if self.game_state == self.PLAYING:
-                #keys = pygame.key.get_pressed()
                 self.handle_events()
                 self.screen.fill(self.COLOR_BACKGROUND) # loescht das vorherige Frame, damit neu gerendert werden kann
                 self.money.show_money(self.screen, self.screen_middle[0], self.screen_middle[1])
-                now = pygame.time.get_ticks()
-                if self.timer.can_spawn(now):
+                self.wave_system.update(self.dt)
+                if self.wave_system.can_spawn(self.dt):
                     self.meteor.add()
                 self.meteor.draw_meteor(self.screen)
                 self.tank.draw_tank(self.screen)
-                self.tank.update(keys, self.screen_size[0])
+                self.tank.update(keys, self.screen_size[0], self.dt)
                 self.ammo.draw_ammo(self.screen)
                 pygame.display.update()
-                self.clock.tick(60) # fungiert als dynaischer sleep, damit die Schleife nur 60 mal pro sek. aufgerufen wird
 
 Game().run()

@@ -17,12 +17,11 @@ class Ammo:
             pos_y (int): die y-Koordinate für die linke obere Ecke
             game (object): die main Klasse zur Handhabung von Interaktionen zwischen den Klassen
         """
-        #self.ammo: pygame.Surface = pygame.image.load("assets/Ammo.png").convert()
-        #self.ammo: pygame.Surface = pygame.transform.scale(self.ammo, (55, 55))
         self.sprite_manager: SpriteManager = SpriteManager()
 
         self.ammo: pygame.Surface = self.sprite_manager.load_sprite("assets/Ammo.png", (55, 55))
         self.ammo_dimensons: int = 55
+        self.speed = 1200 # 20 Pixel pro Frame
 
         self.pos: list = [pos_x, pos_y]
         self.rect: pygame.Rect = self.ammo.get_rect()
@@ -31,11 +30,13 @@ class Ammo:
         self.game = game
 
     
-    def update(self) -> None:
+    def update(self, dt: float) -> None:
         """
         Updated die y-Position der Ammo so, dass sie nach oben schießt und updated auch die Position des collisionrects
+        Arguments:
+            dt (float): delta time in Sekunden
         """
-        self.pos[1] -= 20
+        self.pos[1] -= self.speed * dt
         self.rect.y = self.pos[1] + self.sprite_offset_y
 
     
@@ -55,6 +56,6 @@ class Ammo:
         # slicing ([:]) auf das ammo_array, damit durch eine interne Kopie iteriert wird, die nicht dynamisch veraendert werden kann, damit eventuelle Indexprobleme bei pop() behoben werden
         for i, object in enumerate(self.ammo_array[:]):
             screen.blit(object.ammo, (object.pos[0], object.pos[1]))
-            object.update()
+            object.update(self.game.dt)
             if object.pos[1] < 0 - self.ammo_dimensons:
                 self.ammo_array.pop(i)

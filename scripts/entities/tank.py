@@ -15,6 +15,7 @@ class Tank:
 
         self.tank: pygame.Surface = self.sprite_manager.load_sprite("assets/Tank.png", (90, 90))
         self.tank_dimensions: int = 90
+        self.move_speed = 720 # 12 Pixel pro Frame
 
         self.pos: list = [pos_x, pos_y]
         
@@ -48,12 +49,13 @@ class Tank:
         pygame.draw.rect(screen, "red", self.healthbar)
 
     
-    def update(self, keys: list, screen_width: int) -> None:
+    def update(self, keys: list, screen_width: int, dt: float) -> None:
         """
         updated die x-Koordinaten des Tanks bei Tastendruck von rechter und linker Pfeiltaste oder A und D
         Arguments:
             keys (list): z.B. pygame.key.get_pressed()
             screen_width (int): Breite des Fensters
+            dt (float): delta time in Sekunden
         """
         # Overheat soll kostant abgekuehlt werden
         self.overheat_value = max(0, self.overheat_value - 0.5)
@@ -64,11 +66,11 @@ class Tank:
 
         # Tank bewegen
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            self.pos[0] += 12
+            self.pos[0] += self.move_speed * dt
             self.overheatbar.x = self.pos[0] - 10
             self.healthbar.x = self.pos[0]
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            self.pos[0] -= 12
+            self.pos[0] -= self.move_speed * dt
             self.overheatbar.x = self.pos[0] - 10
             self.healthbar.x = self.pos[0]
 

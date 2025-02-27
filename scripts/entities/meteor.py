@@ -22,6 +22,7 @@ class Meteor:
 
         self.meteor: pygame.Surface = self.sprite_manager.load_sprite("assets/Meteorit.png", (100, 100))
         self.meteor_dimensions: int = 100
+        self.fallspeed = 300 # 5 Pixel pro Frame
 
         self.pos: list = [pos_x, pos_y]
         self.rect: pygame.Rect = pygame.Rect(self.meteor.get_rect())
@@ -43,9 +44,9 @@ class Meteor:
         self.meteor_array.append(Meteor(self.set_position(), 0 - self.meteor_dimensions, self.game))
 
 
-    def update_position(self) -> None:
+    def update_position(self, dt: float) -> None:
         """ updated die y-Koordinate des Meteors und des collisionrects nach unten """
-        self.pos[1] += 5
+        self.pos[1] += self.fallspeed * dt
         self.rect.y = self.pos[1]
 
     
@@ -57,4 +58,4 @@ class Meteor:
         """
         for i, object in enumerate(self.meteor_array[:]):
             screen.blit(self.meteor, (object.pos[0], object.pos[1]))
-            object.update_position()
+            object.update_position(self.game.dt)
