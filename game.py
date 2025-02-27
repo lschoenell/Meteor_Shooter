@@ -15,20 +15,20 @@ class Game:
     # blockiert rendern von schwarzer Farbe
     COLORKEY: tuple = (0, 0, 0)
 
-    # Konstanten für den Spielzustand
+    # Konstanten fuer den Spielzustand
     MAIN_MENU: str = "main menu"
     PLAYING: str = "playing"
 
     def __init__(self) -> None:
         """
-        Beinhaltet grundlegend das Fenster und kümmert sich um die Funktionen der anderen Klassen, fungiert als Main Datei
+        Beinhaltet grundlegend das Fenster und kuemmert sich um die Funktionen der anderen Klassen, fungiert als Main Datei
         """
         # initialisiert pygame und alle darin enthaltenen Module
         pygame.init()
         # setzt den Titel vom Fenster
         pygame.display.set_caption("Meteor Shooter of Absolute Doom")
 
-        # screen initialisieren und größe setzen
+        # screen initialisieren und groesse setzen
         self.screen_size: tuple = (1000, 850)
         self.screen_middle: tuple = (self.screen_size[0] / 2, self.screen_size[1] / 2)
         self.screen: pygame.Surface = pygame.display.set_mode(self.screen_size)
@@ -58,7 +58,7 @@ class Game:
         # Menu initialisieren
         self.menu: MainMenu = MainMenu(self)
 
-        # derzeitiger Spielzustand, startet im Hautptmenü
+        # derzeitiger Spielzustand, startet im Hautptmenue
         self.game_state: str = self.MAIN_MENU
 
     
@@ -72,7 +72,7 @@ class Game:
 
     
     def run(self) -> None:
-        """ der Startknopf für das Spiel """
+        """ der Startknopf fuer das Spiel """
         while True:
             # delta time des vergangenen Frames in Sekunden ausrechnen
             self.dt = self.clock.tick(60) / 1000.0

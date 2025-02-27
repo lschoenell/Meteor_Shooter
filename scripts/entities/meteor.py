@@ -14,8 +14,8 @@ class Meteor:
 
         Arguments: 
         ---------
-            pos_x (int): die x-Koordinate für die linke obere Ecke
-            pos_y (int): die y-Koordinate für die linke obere Ecke
+            pos_x (int): die x-Koordinate fuer die linke obere Ecke
+            pos_y (int): die y-Koordinate fuer die linke obere Ecke
             game (object): die main Klasse zur Handhabung von Interaktionen zwischen den Klassen
         """
         self.game = game
@@ -33,7 +33,7 @@ class Meteor:
     
     def set_position(self) -> int:
         """ 
-        setzt eine zufällige Zahl zwischen 0 und der Breite des Fensters als x-Koordinate des Meteorits
+        setzt eine zufaellige Zahl zwischen 0 und der Breite des Fensters als x-Koordinate des Meteorits
 
         Returns:
         -------
@@ -44,7 +44,7 @@ class Meteor:
     
 
     def add(self) -> None:
-        """ fügt dem internen meteor-array ein neues Objekt an zufälliger x-Position hinzu """
+        """ fuegt dem internen meteor-array ein neues Objekt an zufaelliger x-Position hinzu """
         self.meteor_array.append(Meteor(self.set_position(), 0 - self.meteor_dimensions, self.game))
 
 
@@ -56,7 +56,7 @@ class Meteor:
     
     def draw_meteor(self, screen: pygame.Surface) -> None:
         """
-        iteriert über das interne meteor-array und rendert jedes einzelne Meteor-Objekt daraus. Updated in jedem Schritt die y-Positionen, sodass der Meteor nach unten fliegt
+        iteriert ueber das interne meteor-array und rendert jedes einzelne Meteor-Objekt daraus. Updated in jedem Schritt die y-Positionen, sodass der Meteor nach unten fliegt
 
         Arguments:
         ---------

@@ -2,7 +2,7 @@ import pygame
 
 class Money:
 
-    # Farbe für den Punktestandtext im Hintergrund (hellgrau)
+    # Farbe fuer den Punktestandtext im Hintergrund (hellgrau)
     COLOR_SCORE: tuple = (125, 125, 120)
 
     def __init__(self) -> None:
@@ -14,18 +14,18 @@ class Money:
 
     
     def update_coin_text(self) -> None:
-        """ updated den Text des Geldes und setzt die Alpha auf 125 (ungefähr Hälfte) """
+        """ updated den Text des Geldes und setzt die Alpha auf 125 (ungefaehr Haelfte) """
         self.coin_text = self.font.render(f"{self.coins}", True, self.COLOR_SCORE).convert_alpha()
         self.coin_text.set_alpha(125)
 
 
     def add_money(self, amount: int) -> None:
         """
-        fügt dem Geldspeicher die angegebene Menge hinzu, egal ob positiv oder negativ und begrenzt die Untergrenze bei 0
+        fuegt dem Geldspeicher die angegebene Menge hinzu, egal ob positiv oder negativ und begrenzt die Untergrenze bei 0
 
         Arguments:
         ---------
-            amount (int): die Menge, die hinzugefügt werden soll
+            amount (int): die Menge, die hinzugefuegt werden soll
         """
         if amount < 0 and abs(amount) > self.coins:
             self.coins = 0

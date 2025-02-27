@@ -6,7 +6,7 @@ class MainMenu:
 
     def __init__(self, game: object) -> None:
         """
-        Initialisiert das Hauptmenü und alle Button Sprites
+        Initialisiert das Hauptmenue und alle Button Sprites
 
         Arguments:
         ---------
@@ -21,19 +21,19 @@ class MainMenu:
         self.quit_button_pos: tuple = (100, 300)
 
         # Buttons initialisieren
-        # Start Button und Hover mit Rect für Kollisionen mit der Maus
+        # Start Button und Hover mit Rect fuer Kollisionen mit der Maus
         self.start_button: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Start_Button.png", (160, 80))
         self.start_button_rect: pygame.Rect = self.start_button.get_rect()
         self.start_button_rect.topleft = self.start_button_pos
         self.start_button_hover: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Start_Button_Hover.png", (160, 80))
 
-        # Quit Button mit Hover und Rect für Kollisionen mit der Maus
+        # Quit Button mit Hover und Rect fuer Kollisionen mit der Maus
         self.quit_button: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Quit_Button.png", (160, 80))
         self.quit_button_rect: pygame.Rect = self.quit_button.get_rect()
         self.quit_button_rect.topleft = self.quit_button_pos
         self.quit_button_hover: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Quit_Button_Hover.png", (160, 80))
 
-        # Tutorial Button mit Hover und Rect für Kollisionen mit der Maus
+        # Tutorial Button mit Hover und Rect fuer Kollisionen mit der Maus
         self.tutorial_button: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Tutorial_Button.png", (220, 80))
         self.tutorial_button_rect: pygame.Rect = self.tutorial_button.get_rect()
         self.tutorial_button_rect.topleft = self.tutorial_button_pos
@@ -43,7 +43,7 @@ class MainMenu:
 
     def load_main_menu(self, screen: pygame.Surface) -> None:
         """
-        Läd die Inhalte des Hauptmenüs auf den übergebenen screen, initialisiert nicht die clock
+        Laed die Inhalte des Hauptmenues auf den uebergebenen screen, initialisiert nicht die clock
 
         Arguments:
         ---------

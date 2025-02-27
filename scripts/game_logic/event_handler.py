@@ -13,14 +13,14 @@ class EventHandler:
 
 
     def key_events(self) -> None:
-        """ beinhaltet Handhabung der grundlegenden Eventtypen wie das Schließen des Fensters oder drücken von Tasten """
+        """ beinhaltet Handhabung der grundlegenden Eventtypen wie das Schliessen des Fensters oder druecken von Tasten """
         mouse_x, mouse_y = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-            # einzelner Tastendruck während des Spielens
+            # einzelner Tastendruck waehrend des Spielens
             if event.type == pygame.KEYDOWN and self.game.game_state == self.game.PLAYING:
                 if event.key == pygame.K_SPACE and not self.game.tank.is_overheated:
                     if self.game.tank.overheat_value < 100:
@@ -30,12 +30,16 @@ class EventHandler:
                             self.game.tank.is_overheated = True
                         self.game.tank.overheat_value = new_overheat
 
-            # einzelner Maustastendruck im Hauptmenü
+            # waehrend Power-Up Auswahl
+            if event.type == pygame.MOUSEBUTTONDOWN and self.game.wave_system.wave_active == False:
+                self.game.wave_system.wave_active = True
+
+            # einzelner Maustastendruck im Hauptmenue
             if event.type == pygame.MOUSEBUTTONDOWN and self.game.game_state == self.game.MAIN_MENU:
-                # Handling für den Play Button
+                # Handling fuer den Play Button
                 x_inside_play = False
                 y_inside_play = False
-                # Starten des Spiels beim drücken des Start Buttons
+                # Starten des Spiels beim druecken des Start Buttons
                 if mouse_x >= self.game.menu.start_button_pos[0] and mouse_x <= self.game.menu.start_button_pos[0] + self.game.menu.start_button.get_width():
                     x_inside_play = True
     
@@ -45,10 +49,10 @@ class EventHandler:
                 if x_inside_play and y_inside_play:
                     self.game.game_state = self.game.PLAYING
 
-                # Handling für den Quit Button
+                # Handling fuer den Quit Button
                 x_inside_quit = False
                 y_inside_quit = False
-                # Schließen des Spiels beim drücken des Quit Buttons
+                # Schliessen des Spiels beim druecken des Quit Buttons
                 if mouse_x >= self.game.menu.quit_button_pos[0] and mouse_x <= self.game.menu.quit_button_pos[0] + self.game.menu.quit_button.get_width():
                     x_inside_quit = True
                 
@@ -62,7 +66,7 @@ class EventHandler:
 
     def collisions(self) -> bool:
         """ 
-        checkt für Kollisionen zwischen einer Ammo und allen Meteoriten
+        checkt fuer Kollisionen zwischen einer Ammo und allen Meteoriten
 
         Returns:
         -------

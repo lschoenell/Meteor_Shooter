@@ -6,7 +6,6 @@ class WaveSystem:
         """initialisiert die fuer die Wellen wichtigen Werte"""
         # alles in Sekunden
         self.wave_duration: float = 10.0
-        self.wave_cooldown: float = 5.0
         self.wave_timer: float = 0.0
         self.wave_active: bool = True
         self.current_wave: int = 0
@@ -27,13 +26,8 @@ class WaveSystem:
             if self.wave_timer >= self.wave_duration:
                 self.wave_active = False
                 self.wave_timer = 0
-        else:
-            self.wave_timer += dt
-            if self.wave_timer >= self.wave_cooldown:
-                self.wave_active = True
-                self.wave_timer = 0
                 self.current_wave += 1
-                self.spawn_rate = max(0.2, 1.0 - (self.current_wave * 0.1))
+                self.spawn_rate = max(0.2, 1.0 - (self.current_wave * 0.17))
 
 
     def can_spawn(self, dt: float) -> bool:

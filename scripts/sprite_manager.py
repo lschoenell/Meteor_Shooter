@@ -13,12 +13,12 @@ class SpriteManager:
 
     def load_sprite(self, path: str, dimensions: tuple) -> pygame.Surface:
         """
-        läd und skaliert einen Sprite vom gegebenen Pfad falls noch nicht vorhanden, ansonsten wird der gesuchte Sprite aus dem cache returned
+        laed und skaliert einen Sprite vom gegebenen Pfad falls noch nicht vorhanden, ansonsten wird der gesuchte Sprite aus dem cache returned
 
         Arguments:
         ---------
             path (str): der Pfad zum Bild
-            dimensions (tuple): die Dimensionen (Breite, Höhe) für die Skalierung
+            dimensions (tuple): die Dimensionen (Breite, Hoehe) fuer die Skalierung
 
         Returns:
         -------

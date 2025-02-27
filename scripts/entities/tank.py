@@ -10,8 +10,8 @@ class Tank:
 
         Arguments:
         ---------
-            pos_x (int): die x-Koordinate für die linke obere Ecke
-            pos_y (int): die y-Koordinate für die linke obere Ecke
+            pos_x (int): die x-Koordinate fuer die linke obere Ecke
+            pos_y (int): die y-Koordinate fuer die linke obere Ecke
         """
         self.sprite_manager: SpriteManager = SpriteManager()
 
