@@ -13,7 +13,7 @@ class EventHandler:
 
 
     def key_events(self) -> None:
-        """ beinhaltet Handhabung der grundlegenden Eventtypen wie das Schliessen des Fensters oder druecken von Tasten """
+        """ beinhaltet Handhabung der grundlegenden Eventtypen wie das Schliessen des Fensters oder druecken von Tasten waehrend der verschiedenen Spielstadien """
         mouse_x, mouse_y = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -44,6 +44,32 @@ class EventHandler:
                 if x_inside_next and y_inside_next:
                     self.game.wave_system.in_powerup_selection = False
                     self.game.wave_system.wave_active = True
+
+                # wenn auf eines der Powerups gedrueckt wird
+                x_inside_speed: bool = False
+                y_inside_speed: bool = False
+                x_inside_cool: bool = False
+                y_inside_cool: bool = False
+                if mouse_x >= self.game.power_ups.speed_powerup_pos[0] and mouse_x <= self.game.power_ups.speed_powerup_pos[0] + self.game.power_ups.speed_powerup.get_width():
+                    x_inside_speed = True
+                
+                if mouse_y >= self.game.power_ups.speed_powerup_pos[1] and mouse_y <= self.game.power_ups.speed_powerup_pos[1] + self.game.power_ups.speed_powerup.get_height():
+                    y_inside_speed = True
+
+                if mouse_x >= self.game.power_ups.cooling_powerup_pos[0] and mouse_x <= self.game.power_ups.cooling_powerup_pos[0] + self.game.power_ups.cooling_powerup.get_width():
+                    x_inside_cool = True
+                
+                if mouse_y >= self.game.power_ups.cooling_powerup_pos[1] and mouse_y <= self.game.power_ups.cooling_powerup_pos[1] + self.game.power_ups.cooling_powerup.get_height():
+                    y_inside_cool = True
+
+                if x_inside_speed and y_inside_speed and self.game.money.coins >= 800:
+                    self.game.power_ups.apply_powerup("speed")
+                    self.game.money.add_money(-800)
+
+                if x_inside_cool and y_inside_cool and self.game.money.coins >= 800:
+                    self.game.power_ups.apply_powerup("cooling")
+                    self.game.money.add_money(-800)
+                    
 
             # einzelner Maustastendruck im Hauptmenue
             if event.type == pygame.MOUSEBUTTONDOWN and self.game.game_state == self.game.MAIN_MENU:

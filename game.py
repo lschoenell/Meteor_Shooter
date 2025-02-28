@@ -5,6 +5,7 @@ from scripts.entities.ammo import Ammo
 from scripts.entities.meteor import Meteor
 from scripts.game_logic.event_handler import EventHandler
 from scripts.game_logic.wave_system import WaveSystem
+from scripts.power_ups import Power_Ups
 from scripts.game_logic.money import Money
 from scripts.menus.main_menu import MainMenu
 
@@ -51,6 +52,9 @@ class Game:
 
         # WaveSystem initialisieren
         self.wave_system: WaveSystem = WaveSystem(self)
+
+        # Powerups initialisieren
+        self.power_ups: Power_Ups = Power_Ups(self)
 
         # Geld initialisieren
         self.money: Money = Money()
