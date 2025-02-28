@@ -56,7 +56,9 @@ class WaveSystem:
             if self.wave_timer >= self.wave_duration:
                 self.wave_active = False
                 self.wave_timer = 0
-                self.spawn_rate = max(0.2, 1.0 - (self.current_wave * 0.17))
+                self.spawn_rate = max(0.2, 1.0 - (self.current_wave * 0.11))
+        elif not self.in_powerup_selection:
+            if len(self.game.meteor.meteor_array) == 0:
                 self.current_wave += 1
                 self.in_powerup_selection = True
                 self.update_wave_text()

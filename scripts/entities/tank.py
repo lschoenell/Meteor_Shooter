@@ -17,7 +17,7 @@ class Tank:
 
         self.tank: pygame.Surface = self.sprite_manager.load_sprite("assets/Tank.png", (90, 90))
         self.tank_dimensions: int = 90
-        self.move_speed = 600 # 12 Pixel pro Frame
+        self.move_speed = 480 # 8 Pixel pro Frame
 
         self.pos: list = [pos_x, pos_y]
         
