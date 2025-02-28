@@ -17,7 +17,7 @@ class Tank:
 
         self.tank: pygame.Surface = self.sprite_manager.load_sprite("assets/Tank.png", (90, 90))
         self.tank_dimensions: int = 90
-        self.move_speed = 720 # 12 Pixel pro Frame
+        self.move_speed = 600 # 12 Pixel pro Frame
 
         self.pos: list = [pos_x, pos_y]
         
@@ -25,6 +25,7 @@ class Tank:
         self.rect.topleft = self.pos
 
         self.overheat_value: int = 0 # Prozent
+        self.cooling_value: float = 0.5
         self.is_overheated: bool = False
         self.overheatbar: pygame.Rect = pygame.Rect(self.pos[0] - 10, self.pos[1] + self.tank_dimensions, 10, 0)
 
@@ -64,7 +65,7 @@ class Tank:
             dt (float): delta time in Sekunden
         """
         # Overheat soll kostant abgekuehlt werden
-        self.overheat_value = max(0, self.overheat_value - 0.5)
+        self.overheat_value = max(0, self.overheat_value - self.cooling_value)
 
         # Overheat boolean zuruecksetzen, wenn auf unter 50% abgekuehlt ist
         if self.is_overheated and self.overheat_value <= 50:

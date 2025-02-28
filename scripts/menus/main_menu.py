@@ -37,8 +37,7 @@ class MainMenu:
         self.tutorial_button: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Tutorial_Button.png", (220, 80))
         self.tutorial_button_rect: pygame.Rect = self.tutorial_button.get_rect()
         self.tutorial_button_rect.topleft = self.tutorial_button_pos
-        self.tutorial_button_hover: pygame.Surface = self.sprite_manager.load_sprite(
-            "assets/ui/Tutorial_Button_Hover.png", (220, 80))
+        self.tutorial_button_hover: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Tutorial_Button_Hover.png", (220, 80))
 
 
     def load_main_menu(self, screen: pygame.Surface) -> None:

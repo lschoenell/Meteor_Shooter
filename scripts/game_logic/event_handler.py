@@ -32,13 +32,24 @@ class EventHandler:
 
             # waehrend Power-Up Auswahl
             if event.type == pygame.MOUSEBUTTONDOWN and self.game.wave_system.wave_active == False:
-                self.game.wave_system.wave_active = True
+                # wenn auf den Next Button gerueckt wird
+                x_inside_next: bool = False
+                y_inside_next: bool = False
+                if mouse_x >= self.game.wave_system.next_button_pos[0] and mouse_x <= self.game.wave_system.next_button_pos[0] + self.game.wave_system.next_button.get_width():
+                    x_inside_next = True
+
+                if mouse_y >= self.game.wave_system.next_button_pos[1] and mouse_y <= self.game.wave_system.next_button_pos[1] + self.game.wave_system.next_button.get_height():
+                    y_inside_next = True
+
+                if x_inside_next and y_inside_next:
+                    self.game.wave_system.in_powerup_selection = False
+                    self.game.wave_system.wave_active = True
 
             # einzelner Maustastendruck im Hauptmenue
             if event.type == pygame.MOUSEBUTTONDOWN and self.game.game_state == self.game.MAIN_MENU:
                 # Handling fuer den Play Button
-                x_inside_play = False
-                y_inside_play = False
+                x_inside_play: bool = False
+                y_inside_play: bool = False
                 # Starten des Spiels beim druecken des Start Buttons
                 if mouse_x >= self.game.menu.start_button_pos[0] and mouse_x <= self.game.menu.start_button_pos[0] + self.game.menu.start_button.get_width():
                     x_inside_play = True
@@ -50,8 +61,8 @@ class EventHandler:
                     self.game.game_state = self.game.PLAYING
 
                 # Handling fuer den Quit Button
-                x_inside_quit = False
-                y_inside_quit = False
+                x_inside_quit: bool = False
+                y_inside_quit: bool = False
                 # Schliessen des Spiels beim druecken des Quit Buttons
                 if mouse_x >= self.game.menu.quit_button_pos[0] and mouse_x <= self.game.menu.quit_button_pos[0] + self.game.menu.quit_button.get_width():
                     x_inside_quit = True

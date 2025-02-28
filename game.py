@@ -50,7 +50,7 @@ class Game:
         self.event_handler: EventHandler = EventHandler(self)
 
         # WaveSystem initialisieren
-        self.wave_system: WaveSystem = WaveSystem()
+        self.wave_system: WaveSystem = WaveSystem(self)
 
         # Geld initialisieren
         self.money: Money = Money()
@@ -92,7 +92,7 @@ class Game:
 
                 # Geld und Wellenzaehler anzeigen
                 self.money.show_money(self.screen, self.screen_middle[0], self.screen_middle[1])
-                self.wave_system.show_wave_counter(self.screen, self.screen_middle[0], self.screen_middle[1])
+                self.wave_system.draw(self.screen, self.screen_middle[0], self.screen_middle[1])
 
                 # Wellenlogik
                 self.wave_system.update(self.dt)
