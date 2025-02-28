@@ -20,6 +20,26 @@ class Game:
     MAIN_MENU: str = "main menu"
     PLAYING: str = "playing"
 
+    def init_game_objects(self) -> None:
+        """Initialisiert alle Spielobjekte und setzt sie auf ihre Ausgangswerte"""
+        # Tank initialisieren
+        self.tank: Tank = Tank(self.screen_middle[0] - 45, self.screen_size[1] - 110)
+
+        # Ammo initialisieren
+        self.ammo: Ammo = Ammo(self.tank.pos[0], self.tank.pos[1], self)
+
+        # Meteor initialisieren
+        self.meteor: Meteor = Meteor(0, 0, self)
+
+        # WaveSystem initialisieren
+        self.wave_system: WaveSystem = WaveSystem(self)
+
+        # Powerups initialisieren
+        self.power_ups: Power_Ups = Power_Ups(self)
+
+        # Geld initialisieren
+        self.money: Money = Money()
+
     def __init__(self) -> None:
         """
         Beinhaltet grundlegend das Fenster und kuemmert sich um die Funktionen der anderen Klassen, fungiert als Main Datei
@@ -38,29 +58,14 @@ class Game:
         self.clock: pygame.time.Clock = pygame.time.Clock()
         self.dt: float = 0
 
-        # Tank initialisieren
-        self.tank: Tank = Tank(self.screen_middle[0] - 45, self.screen_size[1] - 110)
-
-        # Ammo initialisieren
-        self.ammo: Ammo = Ammo(self.tank.pos[0], self.tank.pos[1], self)
-
-        # Meteor initialisieren
-        self.meteor: Meteor = Meteor(0, 0, self)
-
         # EventHandler initialisieren
         self.event_handler: EventHandler = EventHandler(self)
 
-        # WaveSystem initialisieren
-        self.wave_system: WaveSystem = WaveSystem(self)
-
-        # Powerups initialisieren
-        self.power_ups: Power_Ups = Power_Ups(self)
-
-        # Geld initialisieren
-        self.money: Money = Money()
-
         # Menu initialisieren
         self.menu: MainMenu = MainMenu(self)
+
+        # Spielobjekte initialisieren
+        self.init_game_objects()
 
         # derzeitiger Spielzustand, startet im Hautptmenue
         self.game_state: str = self.MAIN_MENU
@@ -75,6 +80,11 @@ class Game:
             self.money.add_money(100)
 
     
+    def reset_game(self) -> None:
+        """ Reinitialisiert alle Spielobjekte fuer einen Neustart """
+        self.meteor.meteor_array.clear()
+        self.init_game_objects()
+
     def run(self) -> None:
         """ der Startknopf fuer das Spiel """
         while True:

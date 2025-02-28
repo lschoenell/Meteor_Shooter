@@ -84,6 +84,7 @@ class EventHandler:
                     y_inside_play = True
 
                 if x_inside_play and y_inside_play:
+                    self.game.reset_game()
                     self.game.game_state = self.game.PLAYING
 
                 # Handling fuer den Quit Button
