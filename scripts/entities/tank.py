@@ -28,6 +28,7 @@ class Tank:
         self.cooling_value: float = 0.5
         self.is_overheated: bool = False
         self.overheatbar: pygame.Rect = pygame.Rect(self.pos[0] - 10, self.pos[1] + self.tank_dimensions, 10, 0)
+        self.overheatbar_color: str = "blue"
 
         self.hp: int = 100 # Prozent
         self.healthbar: pygame.Rect = pygame.Rect(self.pos[0], self.pos[1] + self.tank_dimensions + 5, 0, 10)
@@ -47,7 +48,7 @@ class Tank:
         # Overheatbar rendern 
         self.overheatbar.y = self.pos[1] + self.tank_dimensions - (self.tank_dimensions * self.overheat_value / 100)
         self.overheatbar.height = self.pos[1] + self.tank_dimensions - self.overheatbar.y
-        pygame.draw.rect(screen, "blue", self.overheatbar)
+        pygame.draw.rect(screen, self.overheatbar_color, self.overheatbar)
         
         # Healthbar rendern
         self.healthbar.width = self.tank_dimensions * self.hp / 100
@@ -56,7 +57,7 @@ class Tank:
     
     def update(self, keys: list, screen_width: int, dt: float) -> None:
         """
-        updated die x-Koordinaten des Tanks bei Tastendruck von rechter und linker Pfeiltaste oder A und D
+        updated die Daten des Tanks
 
         Arguments:
         ---------
@@ -66,6 +67,14 @@ class Tank:
         """
         # Overheat soll kostant abgekuehlt werden
         self.overheat_value = max(0, self.overheat_value - self.cooling_value)
+
+        # Farbe der Overheatbar wechseln je nach Wert
+        if self.overheat_value >= 70:
+            self.overheatbar_color = "red"
+        elif self.overheat_value <= 50:
+            self.overheatbar_color = "blue"
+        else:
+            self.overheatbar_color = "orange"
 
         # Overheat boolean zuruecksetzen, wenn auf unter 50% abgekuehlt ist
         if self.is_overheated and self.overheat_value <= 50:
