@@ -1,0 +1,54 @@
+import pygame
+
+from scripts.sprite_manager import SpriteManager
+
+class MainMenu:
+
+    def __init__(self, game: object) -> None:
+        """
+        Initialisiert das Hauptmenue und alle Button Sprites
+
+        Arguments:
+        ---------
+            game (object): die game Instanz zum Zugriff auf alle Inhalte der game Logik
+        """
+        self.game: object = game
+        self.sprite_manager: SpriteManager = SpriteManager()
+
+        # Buttons initialisieren
+        # Start Button und Hover mit Rect fuer Kollisionen mit der Maus
+        self.start_button: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Start_Button.png", (160, 80))
+        self.start_button_pos: tuple = (self.game.screen_middle[0] - (self.start_button.get_width() / 2), 250)
+        self.start_button_rect: pygame.Rect = self.start_button.get_rect()
+        self.start_button_rect.topleft = self.start_button_pos
+        self.start_button_hover: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Start_Button_Hover.png", (160, 80))
+
+        # Quit Button mit Hover und Rect fuer Kollisionen mit der Maus
+        self.quit_button: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Quit_Button.png", (160, 80))
+        self.quit_button_pos: tuple = (self.game.screen_middle[0] - (self.quit_button.get_width() / 2), 350)
+        self.quit_button_rect: pygame.Rect = self.quit_button.get_rect()
+        self.quit_button_rect.topleft = self.quit_button_pos
+        self.quit_button_hover: pygame.Surface = self.sprite_manager.load_sprite("assets/ui/Quit_Button_Hover.png", (160, 80))
+
+
+    def load_main_menu(self, screen: pygame.Surface) -> None:
+        """
+        Laed die Inhalte des Hauptmenues auf den uebergebenen screen, initialisiert nicht die clock
+
+        Arguments:
+        ---------
+            screen (pygame.Surface): das Surface, auf das gerendert werden soll
+        """
+        screen.fill(self.game.COLOR_BACKGROUND)
+        # Start Button
+        if self.start_button_rect.collidepoint(pygame.mouse.get_pos()):
+            screen.blit(self.start_button_hover, self.start_button_pos)
+        else:
+            screen.blit(self.start_button, self.start_button_pos)
+        
+        # Quit Button
+        if self.quit_button_rect.collidepoint(pygame.mouse.get_pos()):
+            screen.blit(self.quit_button_hover, self.quit_button_pos)
+        else:
+            screen.blit(self.quit_button, self.quit_button_pos)
+        pygame.display.update()

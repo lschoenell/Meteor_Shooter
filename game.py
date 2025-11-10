@@ -1,154 +1,125 @@
-import sys
 import pygame
-from ammo import Ammo
-from meteor import Meteor
-from random import randint
+
+from scripts.entities.tank import Tank
+from scripts.entities.ammo import Ammo
+from scripts.entities.meteor import Meteor
+from scripts.game_logic.event_handler import EventHandler
+from scripts.game_logic.wave_system import WaveSystem
+from scripts.power_ups import Power_Ups
+from scripts.game_logic.money import Money
+from scripts.menus.main_menu import MainMenu
 
 class Game:
 
-    COLOR_BACKGROUND = (85, 85, 85) # Farbe vom Hintergrund (dunkelgrau)
-    COLOR_SCORE = (125, 125, 120) # Farbe vom Score auf dem Hintergrund (hellgrau)
-    COLORKEY = (0, 0, 0)
-    score = 0
+    # Farbe vom Hintergrund (dunkelgrau)
+    COLOR_BACKGROUND: tuple = (85, 85, 85)
+    # blockiert rendern von schwarzer Farbe
+    COLORKEY: tuple = (0, 0, 0)
+
+    # Konstanten fuer den Spielzustand
+    MAIN_MENU: str = "main menu"
+    PLAYING: str = "playing"
+
+    def init_game_objects(self) -> None:
+        """Initialisiert alle Spielobjekte und setzt sie auf ihre Ausgangswerte"""
+        # Tank initialisieren
+        self.tank: Tank = Tank(self.screen_middle[0] - 45, self.screen_size[1] - 110)
+
+        # Ammo initialisieren
+        self.ammo: Ammo = Ammo(self.tank.pos[0], self.tank.pos[1], self)
+
+        # Meteor initialisieren
+        self.meteor: Meteor = Meteor(0, 0, self)
+
+        # WaveSystem initialisieren
+        self.wave_system: WaveSystem = WaveSystem(self)
+
+        # Powerups initialisieren
+        self.power_ups: Power_Ups = Power_Ups(self)
+
+        # Geld initialisieren
+        self.money: Money = Money()
 
     def __init__(self) -> None:
+        """
+        Beinhaltet grundlegend das Fenster und kuemmert sich um die Funktionen der anderen Klassen, fungiert als Main Datei
+        """
+        # initialisiert pygame und alle darin enthaltenen Module
         pygame.init()
-        pygame.display.set_caption("Meteor Shooter of Absolute Doom")
+        # setzt den Titel vom Fenster
+        pygame.display.set_caption("Meteor Shooter")
 
-        # Screen initialisieren
-        self.screen_size = (1000, 700)
-        self.screen_middle = (self.screen_size[0] / 2, self.screen_size[1] / 2)
-        self.screen = pygame.display.set_mode(self.screen_size)
+        # screen initialisieren und groesse setzen
+        self.screen_size: tuple = (1000, 850)
+        self.screen_middle: tuple = (self.screen_size[0] / 2, self.screen_size[1] / 2)
+        self.screen: pygame.Surface = pygame.display.set_mode(self.screen_size)
 
-        # Gameclock für fps
-        self.clock = pygame.time.Clock()
+        # gameclock fuer fps und delta time
+        self.clock: pygame.time.Clock = pygame.time.Clock()
+        self.dt: float = 0.0
 
-        # Tank initialisieren und hoch scalen
-        self.tank = pygame.image.load("assets/Tank.png").convert()
-        self.tank.set_colorkey(self.COLORKEY)
-        self.tank = pygame.transform.scale(self.tank, (90, 90)) # transformiert Tank zu 90 width und height
-        self.tank_dimensions = 90
+        # EventHandler initialisieren
+        self.event_handler: EventHandler = EventHandler(self)
 
-        # Startposition des Tanks setzen
-        self.tank_pos = [self.screen_middle[0] - (self.tank_dimensions / 2), self.screen_size[1] - (self.tank_dimensions + 10)]
+        # Menu initialisieren
+        self.menu: MainMenu = MainMenu(self)
 
-        # Rect für collisions des Tanks
-        self.tank_rect: pygame.Rect = pygame.Rect(self.tank_pos[0], self.tank_pos[1], self.tank_dimensions, self.tank_dimensions)
+        # Spielobjekte initialisieren
+        self.init_game_objects()
 
-        # Ammo initialisieren und hoch scalen
-        self.ammo: pygame.Surface = pygame.image.load("assets/Ammo.png").convert()
-        self.ammo.set_colorkey(self.COLORKEY)
-        self.ammo = pygame.transform.scale(self.ammo, (55, 55))
-        self.ammo_dimensions: int = 55
-        self.ammo_array: list  = []
-
-        # Meteor initialisieren und hoch scalen
-        self.meteor = pygame.image.load("assets/Meteorit.png").convert()
-        self.meteor.set_colorkey(self.COLORKEY)
-        self.meteor = pygame.transform.scale(self.meteor, (100, 100))
-        self.meteor_dimensions: int = 100
-        self.meteor_array: list = []
+        # derzeitiger Spielzustand, startet im Hautptmenue
+        self.game_state: str = self.MAIN_MENU
 
     
-    # Tank auf screen setzen
-    def draw_tank(self) -> None:
-        self.screen.blit(self.tank, self.tank_pos)
-
-
-    # Tank bewegen und wrappen
-    def move_tank(self) -> None:
-        # inputhandler für den Tank
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT]:
-            self.tank_pos[0] += 12
-        if keys[pygame.K_LEFT]:
-            self.tank_pos[0] -= 12
-
-        # screen wrapping für den Tank
-        if self.tank_pos[0] + self.tank_dimensions < 0:
-            self.tank_pos[0] = self.screen_size[0]
-        if self.tank_pos[0] > self.screen_size[0]:
-            self.tank_pos[0] = -self.tank_dimensions
-
-
-    def shoot_ammo(self) -> None:
-        # alle Schüsse im array auf dem screen laden und hochfliegen lassen
-        for i, object in enumerate(self.ammo_array):
-            self.screen.blit(self.ammo, (object.pos_x, object.pos_y))
-            object.pos_y -= 13
-            object.rect.y = object.pos_y
-            # wenn die Kugeln außerhalb des Bildschirms sind, werden sie gelöscht
-            # (oder wenn sie auf Meteor treffen)
-            if object.pos_y < 0 - self.ammo_dimensions:
-                self.ammo_array.pop(i)
-
-
-    def set_meteor_pos(self) -> int:
-        pos_x = randint(0, self.screen_size[0] - self.meteor_dimensions)
-        return pos_x
-
-
-    def draw_meteor(self) -> None:
-        for i, object in enumerate(self.meteor_array):
-            self.screen.blit(self.meteor, (object.pos_x, object.pos_y))
-            object.pos_y += 5
-            object.rect.y = object.pos_y
-            if object.pos_y > self.screen_size[1] - self.meteor_dimensions:
-                self.meteor_array.pop(i)
-                
-
-    # Zeigt den aktuellen Score in der Mitte
-    def show_score(self) -> None:
-        font = pygame.font.Font(None, 350)
-        score_text = font.render(f"{self.score}", True, self.COLOR_SCORE).convert()
-        score_text.set_alpha(125)
-        self.screen.blit(score_text, (self.screen_middle[0] - (score_text.get_width() / 2), self.screen_middle[1] - (score_text.get_height() / 2 )))     
-
-
-    # eventhandler
     def handle_events(self) -> None:
-        for event in pygame.event.get():
-            # Fenster schließen
-            if event.type == pygame.QUIT: # nur event gibt <Event(256-Quit {})> wieder, event.type ein int
-                pygame.quit()
-                sys.exit()
+        """ Handhabung von Events """
+        self.event_handler.key_events()
 
-            # Leertaste gibt neues Ammo Object ins Muni-array
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    self.ammo_array.append(Ammo(self.tank_pos[0] + (self.tank_dimensions / 2) - (self.ammo_dimensions / 2), self.tank_pos[1] - (self.ammo_dimensions - 15)))
+        if self.event_handler.collisions():
+            # Geld hoch
+            self.money.add_money(100)
 
-                    
-        # Keyhandling für tank und Positionen updaten
-        self.move_tank()
+    
+    def reset_game(self) -> None:
+        """ Reinitialisiert alle Spielobjekte fuer einen Neustart """
+        self.meteor.meteor_array.clear()
+        self.init_game_objects()
 
-
-    def handle_collisions(self) -> None:
-        for ammo in self.ammo_array[:]:
-            for meteor in self.meteor_array[:]:
-                if ammo.rect.colliderect(meteor.rect):
-                    self.ammo_array.remove(ammo)
-                    self.meteor_array.remove(meteor)
-                    self.score += 1
-                    break
-
-
-    # gameloop: wird 60 mal pro Sekunde ausgeführt
     def run(self) -> None:
-        start = pygame.time.get_ticks()
+        """ der Startknopf fuer das Spiel """
         while True:
-            self.handle_events()
-            self.screen.fill(self.COLOR_BACKGROUND) # !!! WICHTIG DAMIT ALTEN FRAMES GELÖSCHT WERDEN !!!
-            self.show_score()
-            now = pygame.time.get_ticks()
-            if now - start > 1000:
-                start = now
-                self.meteor_array.append(Meteor(self.set_meteor_pos(), 0))
-            self.draw_meteor()
-            self.draw_tank()
-            self.shoot_ammo()
-            self.handle_collisions()
-            pygame.display.update()
-            self.clock.tick(60)
+            # delta time des vergangenen Frames in Sekunden ausrechnen
+            self.dt = self.clock.tick(60) / 1000.0
+
+            keys = pygame.key.get_pressed()
+            
+            if self.game_state == self.MAIN_MENU:
+                self.event_handler.key_events()
+                # Hauptmenue laden
+                self.menu.load_main_menu(self.screen)
+
+            if self.game_state == self.PLAYING:
+                self.handle_events()
+
+                # vorheriges Frame loeschen
+                self.screen.fill(self.COLOR_BACKGROUND)
+
+                # Geld und Wellenzaehler anzeigen
+                self.money.show_money(self.screen, self.screen_middle[0], self.screen_middle[1])
+                self.wave_system.draw(self.screen, self.screen_middle[0], self.screen_middle[1])
+
+                # Wellenlogik
+                self.wave_system.update(self.dt)
+                if self.wave_system.can_spawn(self.dt):
+                    self.meteor.add()
+
+                # Spielentities laden und updaten
+                self.meteor.draw_meteor(self.screen)
+                self.tank.draw_tank(self.screen)
+                self.tank.update(keys, self.screen_size[0], self.dt)
+                self.ammo.draw_ammo(self.screen)
+
+                # Bild rendern
+                pygame.display.update()
 
 Game().run()
