@@ -18,7 +18,7 @@ class Meteor:
             pos_y (int): die y-Koordinate fuer die linke obere Ecke
             game (object): die main Klasse zur Handhabung von Interaktionen zwischen den Klassen
         """
-        self.game = game
+        self.game: object = game
 
         self.sprite_manager: SpriteManager = SpriteManager()
 
@@ -49,7 +49,13 @@ class Meteor:
 
 
     def update_position(self, dt: float) -> None:
-        """ updated die y-Koordinate des Meteors und des collisionrects nach unten """
+        """ 
+        updated die y-Koordinate des Meteors und des collisionrects nach unten 
+        
+        Arguments:
+        ---------
+            dt (float): delta time in Sekunden
+        """
         self.pos[1] += self.fallspeed * dt
         self.rect.y = self.pos[1]
 

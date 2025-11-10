@@ -7,7 +7,7 @@ class Power_Ups:
     SIZE: tuple = (90, 90)
 
     def __init__(self, game: object) -> None:
-        
+        """ initialisiert die Power-Up-Klasse, die zugehoerigen Sprites und die Kollisionsrechtecke der Power-Ups """
         self.game: object = game
         self.sprite_manager: SpriteManager = SpriteManager()
 
@@ -40,7 +40,13 @@ class Power_Ups:
 
     
     def apply_powerup(self, type: str) -> None:
+        """
+        updated die Werte des Tanks basierend auf dem uebergebenen Typs
 
+        Arguments:
+        ---------
+            type (str): "speed" oder "cooling"
+        """
         if type == "speed":
             self.game.tank.move_speed *= 1.15 # erhoeht um 15%
         elif type == "cooling":
@@ -48,6 +54,14 @@ class Power_Ups:
 
     
     def draw(self, screen: pygame.Surface) -> None:
+        """
+        rendert die Power-Ups auf das angegebene Surface und handhabt die Logik der Beschreibungen
+
+        Arguments:
+        ---------
+            screen (pygame.Surface): Surface, auf das gerendert werden soll
+        """
+
         # Powerups zeichnen
         screen.blit(self.speed_powerup, self.speed_powerup_pos)
         screen.blit(self.cooling_powerup, (self.cooling_powerup_pos))

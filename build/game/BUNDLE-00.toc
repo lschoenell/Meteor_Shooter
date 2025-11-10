@@ -1,0 +1,3 @@
+([('game',
+   '/Users/leonschonfeld/vscode-workspace/Python/PygameProjects/Meteor_Shooter/dist/game',
+   'EXECUTABLE')],)

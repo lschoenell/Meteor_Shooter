@@ -71,6 +71,10 @@ class WaveSystem:
         Arguments:
         ---------
             dt (float): delta time in Sekunden
+
+        Returns:
+        -------
+            bool: ja oder nein, ob gespawnt werden kann
         """
         if not self.wave_active:
             return False
@@ -83,7 +87,15 @@ class WaveSystem:
 
 
     def draw(self, screen: pygame.Surface, x: int, y:int) -> None:
-        
+        """
+        rendert in der Wellenphase die Zahl der aktuellen Welle und in der Power-Up-Phase die Powerups
+
+        Arguments:
+        ---------
+            screen (pygame.Surface): Surface, auf das gerendert werden soll
+            x (int): x-Koordinate der Mitte
+            y (int): y-Koordinate der Mitte
+        """
         if self.wave_active == True:
             screen.blit(self.wave_text, (x - (self.wave_text.get_width() / 2), y - (self.wave_text.get_height() / 2 ) + 115))
 

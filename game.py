@@ -47,7 +47,7 @@ class Game:
         # initialisiert pygame und alle darin enthaltenen Module
         pygame.init()
         # setzt den Titel vom Fenster
-        pygame.display.set_caption("Meteor Shooter of Absolute Doom")
+        pygame.display.set_caption("Meteor Shooter")
 
         # screen initialisieren und groesse setzen
         self.screen_size: tuple = (1000, 850)
@@ -56,7 +56,7 @@ class Game:
 
         # gameclock fuer fps und delta time
         self.clock: pygame.time.Clock = pygame.time.Clock()
-        self.dt: float = 0
+        self.dt: float = 0.0
 
         # EventHandler initialisieren
         self.event_handler: EventHandler = EventHandler(self)
